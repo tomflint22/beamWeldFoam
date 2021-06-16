@@ -1,0 +1,158 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    "alpha.phase1.*"
+    {
+        nAlphaCorr      2;
+        nAlphaSubCycles 3;
+        cAlpha          0.8;
+
+        MULESCorr       yes;
+        nLimiterIter    5;
+
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-12;
+        relTol          0;
+    }
+
+    "pcorr.*"
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-12;
+        relTol          0;
+    }
+
+    p_rgh
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-12;
+        relTol          0.0;
+    }
+
+    p_rghFinal
+    {
+        $p_rgh;
+        relTol          0;
+    }
+
+    U
+    {
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-12;
+        relTol          0;
+    }
+
+    Temperature
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-12;
+        minIter         2;
+        maxIter         50;//2
+    }
+
+    TemperatureFinal
+    {
+        $Temperature;
+    }
+
+    D
+    {
+      tolerance       1e-9;
+      relTol          0;
+      minIter         0;
+      maxIter         1000;
+
+      //solver          PCG;
+      //preconditioner  DIC;
+
+      solver                GAMG;
+      smoother              GaussSeidel;
+      nPreSweeps            0;
+      nPostSweeps           2;
+      nFinestSweeps         2;
+      scaleCorrection       true;
+      directSolveCoarsest   false;
+      cacheAgglomeration    true;
+      nCellsInCoarsestLevel 20;
+      agglomerator          faceAreaPair;
+      mergeLevels           1;
+    }
+
+}
+
+stressAnalysis
+{
+   // compactNormalStress yes;
+    nCorrectors     10000;
+    D               1e-06;
+
+    aitkenRelaxation   no;
+}
+
+PIMPLE
+{
+    momentumPredictor   no;
+    nOuterCorrectors    1;
+    nCorrectors         5;
+    nNonOrthogonalCorrectors 0;
+    pRefCell        0.0;
+    pRefValue       0.0;
+}
+
+MELTING
+{
+    minTempCorrector 1;
+    maxTempCorrector 100;
+    epsilonTolerance 1e-9;
+    epsilonRelaxation 0.95;
+//	//	Heatsource characteristics
+HS_a 0.0075;
+HS_bg 0.0;//20
+HS_velocity 0.0;//6.0;
+HS_lg 0.0;
+HS_Q 0.0;//
+
+HS_deposition_cutoff 0.9;
+
+Oscillation_Amplitude   0.0;//0.015;
+Oscillation_Frequency   10.0;
+
+Y_R 0.2;//0.05; //Y_R->0 HS -> wider
+focY	0.0165; //-0.08;//
+foc_shift_vel 0.0;
+Q_ramp_rate 2500.0;
+tshift 2.5;
+
+}
+
+relaxationFactors
+{
+    equations
+    {
+        ".*" 0.99;
+    }
+}
+
+
+// ************************************************************************* //
