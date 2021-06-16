@@ -9,8 +9,8 @@
     }
 
 
-pVap = 0.54 * p0 * Foam::exp(LatentHeatVap*Mm*((Temperature-Tvap)/(R*Temperature*Tvap)));
-pVap.correctBoundaryConditions();
+// pVap = 0.54 * p0 * Foam::exp(LatentHeatVap*Mm*((Temperature-Tvap)/(R*Temperature*Tvap)));
+// pVap.correctBoundaryConditions();
 
 
     surfaceScalarField rAUf("rAUf", fvc::interpolate(rAU()));
@@ -34,7 +34,7 @@ pVap.correctBoundaryConditions();
     (
         (
             mixture.surfaceTensionForce()//*fvc::interpolate(damper)
-	    +fvc::interpolate(pVap*damper)*fvc::snGrad(alpha1)
+	    +fvc::interpolate(pVap)*fvc::snGrad(alpha1)
           - ghf*fvc::snGrad(rho*rhok)
         )*rAUf*mesh.magSf()
     );

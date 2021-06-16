@@ -3,6 +3,8 @@
     dimensionedScalar DarcyConstantlarge("DarcyConstantlarge",dimensionSet(1,-3,-1,0,0),scalar(1.0e6));//1e10
     dimensionedScalar DarcyConstantsmall("DarcyConstantsmall",dimensionSet(0,0,0,0,0),scalar(1.0e-12));//1e-6
 
+    dimensionedScalar TSmooth("TSmooth",dimensionSet(0, 0, 0, 1, 0),50.0);
+
     DC=(DarcyConstantlarge*Foam::pow((1.0-epsilon1),2)/(Foam::pow(epsilon1,3)+DarcyConstantsmall));
     DC.correctBoundaryConditions();
 
@@ -17,7 +19,9 @@
     volScalarField damper = 2.0 * rho /(rho1+rho2); //To account for high density difference
 
 
-    pVap = 0.54 * p0 * Foam::exp(LatentHeatVap*Mm*((Temperature-Tvap)/(R*Temperature*Tvap)));
+
+    pVap = min(max((Temperature-(Tvap-(TSmooth/2.0)))/TSmooth,0.0),1.0)// added a kind of logistic ramping function to ensure pvap is 0 far below the Tvap, and turns on smoothly over the Temperature intervat TSmooth
+           * 0.54 * p0 * Foam::exp(LatentHeatVap*Mm*((Temperature-Tvap)/(R*Temperature*Tvap)));
 pVap.correctBoundaryConditions();
 
     fvVectorMatrix UEqn
@@ -26,7 +30,7 @@ pVap.correctBoundaryConditions();
       + MRF.DDt(rho, U)
       + turbulence->divDevRhoReff(rho, U)
       + fvm::Sp(DC, U)
-      -Marangoni*damper
+      -Marangoni//*damper
       //-pVap*nHatM*mag(gradAlpha)
      ==
         fvOptions(rho, U)
@@ -46,7 +50,7 @@ pVap.correctBoundaryConditions();
             (
                 (
                     mixture.surfaceTensionForce()//*fvc::interpolate(damper)
-		    +fvc::interpolate(pVap*damper)*fvc::snGrad(alpha1)
+		    +fvc::interpolate(pVap)*fvc::snGrad(alpha1)
                   - ghf*fvc::snGrad(rho*rhok)
                   - fvc::snGrad(p_rgh)
                 ) * mesh.magSf()
