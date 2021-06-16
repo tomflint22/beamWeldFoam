@@ -98,13 +98,13 @@ MELTING
     epsilonTolerance 1e-9;
     epsilonRelaxation 0.95;
 //	//	Heatsource characteristics
-HS_a 0.0075;
+HS_a 0.002;
 HS_bg 0.0;//20
 HS_velocity 0.0;//6.0;
 HS_lg 0.0;
-HS_Q 4000;//
+HS_Q 12000;//
 
-HS_deposition_cutoff 0.05;
+HS_deposition_cutoff 0.5;
 
 Oscillation_Amplitude   0.0;//0.015;
 Oscillation_Frequency   10.0;

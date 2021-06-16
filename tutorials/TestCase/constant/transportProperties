@@ -29,9 +29,9 @@ phase1
     LatentHeat  500.0;//270000;
     beta    1.0e-5;
 
-    Tvap 3000.0;
-    Mm 0.05;
-LatentHeatVap 600000.0;
+//    Tvap 3000.0;
+//    Mm 0.05;
+//LatentHeatVap 600000.0;
 
 }
 
@@ -47,14 +47,16 @@ phase2
     LatentHeat  1.0;
     beta    5.0e-4;
 
-    Tvap 5.0;
-    Mm 0.02;
-LatentHeatVap 50.0;
+//    Tvap 5.0;
+//    Mm 0.02;
+//LatentHeatVap 50.0;
 }
 
 sigma            1.5;
 dsigmadT	-2e-4;
 p0		100000.0;
-//Tvap 3000.0;
+    Tvap 3000.0;
+    Mm 0.05;
+LatentHeatVap 6000000.0;
 
 // ************************************************************************* //
