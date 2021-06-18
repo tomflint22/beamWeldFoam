@@ -82,9 +82,9 @@ TRHS.correctBoundaryConditions();
 
 
 
-tensor Ei(1,0,0,0,1,0,0,0,1);
+// tensor Ei(1,0,0,0,1,0,0,0,1);
 volTensorField gradU = fvc::grad(U);
-volTensorField tau = ((mixture.mu()*gradU) + (mixture.mu()*gradU.T()))-((2.0/3.0)*mixture.mu()*(fvc::div(phi))*Ei);
+volTensorField tau = ((mixture.mu()*gradU) + (mixture.mu()*gradU.T()))-((2.0/3.0)*mixture.mu()*(fvc::div(phi))*I);
 
 
 
@@ -96,7 +96,7 @@ ViscousDissipation=(tau && gradU);
       + fvm::div(rhophicp, Temperature)
       - fvm::Sp(fvc::ddt(rhoCp) + fvc::div(rhophicp), Temperature)
       - fvm::laplacian(kappa, Temperature)
-    //   -(tau && gradU) //Viscous dissipation
+       -(tau && gradU) //Viscous dissipation
     //   +fvc::ddt(rho, K) + fvc::div(mixture.rhoPhi(), K)
 // + (
 //             // fvc::div(fvc::absolute(phi, U), p)
