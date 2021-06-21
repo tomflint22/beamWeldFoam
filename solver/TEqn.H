@@ -78,15 +78,12 @@ TRHS=          ((
                 ;
 TRHS.correctBoundaryConditions();
 
-
-
-
-
 tensor Ei(1,0,0,0,1,0,0,0,1);
 volTensorField gradU = fvc::grad(U);
 volTensorField tau = ((mixture.mu()*gradU) + (mixture.mu()*gradU.T()))-((2.0/3.0)*mixture.mu()*(fvc::div(phi))*Ei);
 
-
+Qv = min(max((Temperature-(Tvap-(TSmooth/2.0)))/TSmooth,0.0),1.0)*0.82*LatentHeatVap*Mm*p0*Foam::exp(LatentHeatVap*Mm*((Temperature-Tvap)/(R*Temperature*Tvap)))/Foam::pow(2*M_PI*Mm*R*Temperature,0.5);
+Qv.correctBoundaryConditions();
 
 ViscousDissipation=(tau && gradU);
 
@@ -106,6 +103,7 @@ ViscousDissipation=(tau && gradU);
  fvOptions(rhoCp,Temperature)
              +
  (sourceTerm)//epsilon1
+- Qv*mag(gradAlpha)
 -(TRHS)
 
 );
