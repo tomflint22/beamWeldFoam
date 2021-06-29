@@ -67,9 +67,9 @@ Le1 = epsilon1*LatentHeat;
 
 
 
-TRHS=          ((
-    fvc::ddt(rho,Le1)
-              + fvc::div(rhoPhi, Le1)
+TRHS=          LatentHeat*((
+    fvc::ddt(rho,epsilon1)
+              + fvc::div(rhoPhi, epsilon1)
               )
 
 
