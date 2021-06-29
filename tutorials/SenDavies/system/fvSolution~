@@ -1,0 +1,142 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    "alpha.*"
+    {
+        nAlphaSubCycles 5;
+    }
+
+    p_rgh
+    {
+        solver          GAMG;
+        tolerance       1e-8;
+        relTol          0.05;//0.005;//0.05;
+        smoother        GaussSeidel;//GaussSeidel;//
+        nPreSweeps      2;
+        nPostSweeps     3;
+        nFinestSweeps   2;
+        cacheAgglomeration on;
+        nCellsInCoarsestLevel 10;
+        agglomerator    faceAreaPair;
+        mergeLevels     1;
+    }
+
+    p_rghFinal
+    {
+        solver          PCG;
+        preconditioner
+        {
+            preconditioner  GAMG;
+            tolerance       1e-8;
+            relTol          0;
+            nVcycles        5;
+            smoother        GaussSeidel;//GaussSeidel;//DICGaussSeidel;//
+            nPreSweeps      2;
+            nPostSweeps     3;
+            nFinestSweeps   2;
+            cacheAgglomeration on;
+            nCellsInCoarsestLevel 10;
+            agglomerator    faceAreaPair;
+            mergeLevels     1;
+        }
+        tolerance       1e-8;
+        relTol          0;
+        maxIter         25;//20;
+    }
+
+    pcorr
+    {
+        $p_rghFinal;
+        tolerance       1e-8;
+        relTol          0;
+    }
+
+    U
+    {
+        solver          smoothSolver;
+        smoother        GaussSeidel;//GaussSeidel;//DICGaussSeidel;//
+        tolerance       1e-9;
+        relTol          0.05;//0.1;
+        nSweeps         5;//1;
+    }
+
+    UFinal
+    {
+        $U;
+        tolerance       1e-9;
+        relTol          0;
+    }
+
+    Temperature
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-9;
+        minIter         1;
+        maxIter         50;//2
+    }
+
+    TemperatureFinal
+    {
+        $Temperature;
+    }
+}
+
+PIMPLE
+{
+    nOuterCorrectors 1;
+    nCorrectors     5;
+    nNonOrthogonalCorrectors 0;
+    pRefCell        0.0;
+    pRefValue       0.0;
+}
+
+MELTING
+{
+    minTempCorrector 1;
+    maxTempCorrector 320;
+    epsilonTolerance 1e-12;
+    epsilonRelaxation 0.6;
+    
+    epsilon2Tolerance 1e-9;
+    epsilon2Relaxation 0.6;
+//	//	Heatsource characteristics
+HS_a 0.00025;
+HS_c 0.00025;
+HS_bg 0.020;//20
+HS_dg 0.03;//done
+HS_velocity 0.00833333;
+HS_lg -0.000833333;
+HS_Q 12000.0;
+
+Ray_direction (0 10 0);
+RAY_absorption_factor 1.0;//probability of each ray being absorbed//
+RAY_sizetolerence 0.5e-7;
+
+surface_Tension_sigma 1.5;//0.75;
+surface_Tension_dsigmadT -0.28e-4;
+atmospheric_pressure 1.0e-4;
+}
+
+relaxationFactors
+{
+    "U.*"           0.82;//0.82;//1;
+}
+
+// ************************************************************************* //
