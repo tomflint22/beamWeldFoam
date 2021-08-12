@@ -23,7 +23,9 @@ phase1
     nu              2.8e-5;
     rho             5000;
     cp  100;
-    kappa  70.0; 
+    cpsolid  100;
+    kappa  100e4;//70.0; 
+    kappasolid  70.0; 
     Tsolidus    -40;
     Tliquidus   -10;
     LatentHeat  270000;
@@ -34,9 +36,11 @@ phase2
 {
     transportModel  Newtonian;
     nu              1.185e-10;
-    rho             1.185;
+    rho             1.185e-6;
     cp  1000;
-    kappa      1e-10;
+cpsolid  1000;
+    kappa      100e4;
+kappasolid  1.0e4; 
     Tsolidus    -10.0;
     Tliquidus   -5.0;
     LatentHeat  1.0;

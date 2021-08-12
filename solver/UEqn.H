@@ -20,8 +20,9 @@
 
 
 
-    pVap = min(max((Temperature-(Tvap-(TSmooth/2.0)))/TSmooth,0.0),1.0)// added a kind of logistic ramping function to ensure pvap is 0 far below the Tvap, and turns on smoothly over the Temperature intervat TSmooth
-           * 0.54 * p0 * Foam::exp(LatentHeatVap*Mm*((Temperature-Tvap)/(R*Temperature*Tvap)));
+    pVap = //min(max((Temperature-(Tvap-(TSmooth/2.0)))/TSmooth,0.0),1.0)
+         //  * 
+	0.54 * p0 * Foam::exp(LatentHeatVap*Mm*((Temperature-Tvap)/(R*Temperature*Tvap)));
 pVap.correctBoundaryConditions();
 
     fvVectorMatrix UEqn

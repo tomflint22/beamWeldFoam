@@ -36,15 +36,15 @@ solvers
     {
         solver          PCG;
         preconditioner  DIC;
-        tolerance       1e-12;
+        tolerance       1e-9;
         relTol          0;
     }
 
     p_rgh
     {
         solver          GAMG;
-        tolerance       1e-9;
-        relTol          0.0;//0.005;//0.05;
+        tolerance       1e-12;
+        relTol          0;//0.005;//0.05;
         smoother        GaussSeidel;//GaussSeidel;//
         nPreSweeps      2;
         nPostSweeps     3;
@@ -61,7 +61,7 @@ solvers
         preconditioner
         {
             preconditioner  GAMG;
-            tolerance       1e-9;
+            tolerance       1e-12;
             relTol          0;
             nVcycles        5;
             smoother        GaussSeidel;//GaussSeidel;//DICGaussSeidel;//
@@ -73,7 +73,7 @@ solvers
             agglomerator    faceAreaPair;
             mergeLevels     1;
         }
-        tolerance       1e-9;
+        tolerance       1e-12;
         relTol          0;
         maxIter         25;//20;
     }
@@ -82,7 +82,7 @@ solvers
     {
         solver          smoothSolver;
         smoother        symGaussSeidel;
-        tolerance       1e-12;
+        tolerance       1e-16;
         relTol          0;
     }
 
@@ -140,7 +140,7 @@ relaxationFactors
 {
     equations
     {
-        ".*" 0.99;
+        ".*" 0.95;
     }
 }
 

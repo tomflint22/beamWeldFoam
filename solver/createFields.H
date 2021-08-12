@@ -71,8 +71,14 @@ dictionary phase2 = transportProperties.subDict("phase2");
 dimensionedScalar cp1("cp1",dimensionSet(0, 2, -2, -1, 0),phase1.lookup("cp"));
 dimensionedScalar cp2("cp2",dimensionSet(0, 2, -2, -1, 0),phase2.lookup("cp"));
 
+dimensionedScalar cp1solid("cp1solid",dimensionSet(0, 2, -2, -1, 0),phase1.lookup("cpsolid"));
+dimensionedScalar cp2solid("cp2solid",dimensionSet(0, 2, -2, -1, 0),phase2.lookup("cpsolid"));
+
 dimensionedScalar kappa1("kappa1",dimensionSet(1, 1, -3, -1, 0),phase1.lookup("kappa"));
 dimensionedScalar kappa2("kappa2",dimensionSet(1, 1, -3, -1, 0),phase2.lookup("kappa"));
+
+dimensionedScalar kappa1solid("kappa1solid",dimensionSet(1, 1, -3, -1, 0),phase1.lookup("kappasolid"));
+dimensionedScalar kappa2solid("kappa2solid",dimensionSet(1, 1, -3, -1, 0),phase2.lookup("kappasolid"));
 
 dimensionedScalar Tsolidus1("Tsolidus1",dimensionSet(0, 0, 0, 1, 0),phase1.lookup("Tsolidus"));
 dimensionedScalar Tsolidus2("Tsolidus2",dimensionSet(0, 0, 0, 1, 0),phase2.lookup("Tsolidus"));
@@ -110,7 +116,7 @@ dimensionedScalar R ("R", dimensionSet(1,2,-2,-1,-1,0,0),8.314);
             runTime.timeName(),
             mesh,
             IOobject::NO_READ,
-            IOobject::NO_WRITE
+            IOobject::AUTO_WRITE
         ),
         mesh,
         dimensionedScalar("cp",dimensionSet(0, 2, -2, -1, 0),0.0)
@@ -176,7 +182,7 @@ LatentHeatVap=alpha1*LatentHeatVap1 + alpha2*LatentHeatVap2;
             runTime.timeName(),
             mesh,
             IOobject::NO_READ,
-            IOobject::NO_WRITE
+            IOobject::AUTO_WRITE
         ),
         mesh,
         dimensionedScalar("kappa",dimensionSet(1, 1, -3, -1, 0),0.0)
@@ -263,6 +269,8 @@ TLiquidus=alpha1*Tliquidus1 + alpha2*Tliquidus2;
        dimensionedScalar("epsilon1",dimensionSet(0,0,0,0,0),0.0)
     );
 
+epsilon1=max(min((Temperature-TSolidus)/(TLiquidus-TSolidus),scalar(1)),scalar(0));
+
 /*
      volScalarField epsilon1mask
     (
@@ -328,19 +336,7 @@ LatentHeat=alpha1*LatentHeat1 + alpha2*LatentHeat2;
 
 
 
-    volScalarField Le1
-    (
-        IOobject
-        (
-            "Le1",
-            runTime.timeName(),
-            mesh,
-            IOobject::NO_READ,
-            IOobject::NO_WRITE
-        ),
-        mesh,
-        dimensionedScalar("Le1",dimensionSet(0, 2, -2, 0, 0),0.0)
-    );
+
 
 volScalarField xcoord
 (
@@ -677,7 +673,7 @@ volScalarField BeamProfile
             runTime.timeName(),
             mesh,
             IOobject::NO_READ,
-            IOobject::NO_WRITE
+            IOobject::AUTO_WRITE
          ),
         mesh,
         dimensionedScalar("0", dimensionSet(1,0,-3,0,0,0,0), 0.0)//,
