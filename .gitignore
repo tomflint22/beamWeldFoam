@@ -13,3 +13,8 @@ log
 9*
 *e-*
 processor*
+boundary
+faces
+neighbour
+owner
+points
