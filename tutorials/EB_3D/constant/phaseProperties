@@ -1,0 +1,50 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1812                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      phaseProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+type    massTransferMultiphaseSystem;
+
+phases  (solid liquid);
+
+liquid
+{
+    type            pureMovingPhaseModel;
+}
+
+solid
+{
+    type            pureStaticSolidPhaseModel;
+}
+
+interfacePorous
+(
+    (solid and liquid)
+    {
+        type            VollerPrakash;
+        solidPhase      alpha.solid;
+        Cu              1e7;
+    }
+);
+
+massTransferModel
+(
+    (solid to liquid)
+    {
+        type            Lee;
+        C               40;
+        Tactivate       302.78;
+    }
+);
+
+// ************************************************************************* //
