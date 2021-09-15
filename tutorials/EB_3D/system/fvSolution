@@ -22,7 +22,7 @@ solvers
         nAlphaCorr      2;
         nAlphaSubCycles 3;
         cAlpha          1;
-	scAlpha		1;
+	//scAlpha		0.5;
 	//icAlpha		1;
 
         MULESCorr       yes;
@@ -66,11 +66,10 @@ solvers
 
     Temperature
     {
-        solver          PBiCG;
-        preconditioner  DILU;
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
         tolerance       1e-12;
-        minIter         2;
-        maxIter         50;//2
+        relTol          0;
     }
 
     TemperatureFinal
@@ -100,14 +99,14 @@ MELTING
     epsilonTolerance 1e-9;
     epsilonRelaxation 0.95;
 //	//	Heatsource characteristics
-HS_a 0.0002;
+HS_a 0.00018;
 HS_c 0.0001;
 HS_bg 0.0;
 HS_velocity 0.04166666;
 HS_lg 0.001;//0.0025;
-HS_Q 1000.0;
+HS_Q 700.0;
 
-HS_deposition_cutoff 0.5;
+HS_deposition_cutoff 0.05;
 
 Oscillation_Amplitude   0.0;//0.015;
 Oscillation_Frequency   0.0;

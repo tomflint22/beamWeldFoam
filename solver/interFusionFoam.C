@@ -152,6 +152,8 @@ int main(int argc, char *argv[])
             #include "alphaControls.H"
             #include "alphaEqnSubCycle.H"
 
+	    #include "UpdateProps.H"
+
             mixture.correct();
 
             #include "UEqn.H"
@@ -173,7 +175,7 @@ int main(int argc, char *argv[])
 
         }
 
-        #include "UpdateProps.H"
+        
 
 
         runTime.write();

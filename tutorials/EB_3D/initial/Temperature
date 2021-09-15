@@ -32,12 +32,12 @@ type            zeroGradient;
     lowerWall
     {
 type fixedGradient;
-gradient uniform -1.0e3;
+gradient uniform -1.0e2;
     }
     atmosphere
     {
 type fixedGradient;
-gradient uniform -1.0e3;
+gradient uniform -1.0e2;
     }
     frontAndBack
     {

@@ -35,10 +35,10 @@ correctPhi.H \
 $(WM_PROJECT_DIR)/src/dynamicFvMesh/lnInclude/meshCourantNo.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/alphaControls.H \
 ./VoF/alphaEqnSubCycle.H \
+UpdateProps.H \
 UEqn.H \
 TEqn.H \
 pEqn.H \
-UpdateProps.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/parRun.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/Time.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvMesh.H \
@@ -910,10 +910,10 @@ correctPhi.H :
 $(WM_PROJECT_DIR)/src/dynamicFvMesh/lnInclude/meshCourantNo.H :
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/alphaControls.H :
 ./VoF/alphaEqnSubCycle.H :
+UpdateProps.H :
 UEqn.H :
 TEqn.H :
 pEqn.H :
-UpdateProps.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/parRun.H :
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/Time.H :
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvMesh.H :

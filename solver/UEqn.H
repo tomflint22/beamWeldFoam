@@ -20,8 +20,8 @@
 
 
 
-    pVap = //min(max((Temperature-(Tvap-(TSmooth/2.0)))/TSmooth,0.0),1.0)
-         //  * 
+    pVap = min(max((Temperature-(Tvap-(TSmooth/2.0)))/TSmooth,0.0),1.0)
+           *alpha1* 
 	0.54 * p0 * Foam::exp(LatentHeatVap*Mm*((Temperature-Tvap)/(R*Temperature*Tvap)));
 pVap.correctBoundaryConditions();
 

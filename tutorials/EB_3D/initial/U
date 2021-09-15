@@ -22,8 +22,7 @@ boundaryField
 {
     leftWall
     {
-        type            fixedValue;
-        value           uniform (0 0 0);
+        type            slip;
     }
     atmosphere
     {
@@ -35,21 +34,15 @@ value uniform (0 0 0);
     }
     lowerWall
     {
-type pressureInletOutletVelocity;
-phi phi;
-rho rho;
-tangentialVelocity uniform (0 0 0);
-value uniform (0 0 0);
+        type            slip;
     }
     rightWall
     {
-        type            fixedValue;
-        value           uniform (0 0 0);
+        type            slip;
     }
     frontAndBack
     {
-        type            fixedValue;
-        value           uniform (0 0 0);
+        type            slip;
     }
     defaultFaces
     {

@@ -32,10 +32,8 @@ boundaryField
     }
     lowerWall
     {
-        type            totalPressure;
-        p0              uniform 0;
-        U               U;
-        phi             phi;
+        type            fixedFluxPressure;
+        value           uniform 0;
     }
     atmosphere
     {

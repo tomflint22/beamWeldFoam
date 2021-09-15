@@ -34,8 +34,7 @@ dimensionedScalar Osc_freq("Osc_freq",dimensionSet(0, 0, -1, 0, 0),Oscillation_F
 
     dimensionedScalar residual("residual",dimensionSet(0, 0, 0, 0, 0),scalar(1.0));
     dimensionedScalar meanResidual("meanResidual",dimensionSet(0, 0, 0, 0, 0),scalar(1.0));
-    dimensionedScalar residual2("residual2",dimensionSet(0, 0, 0, 0, 0),scalar(1.0));
-    dimensionedScalar meanResidual2("meanResidual2",dimensionSet(0, 0, 0, 0, 0),scalar(1.0));
+    dimensionedScalar Tresidual("Tresidual",dimensionSet(0, 0, 0, 0, 0),scalar(1.0));
 
 //
 //
@@ -63,7 +62,7 @@ surfaceScalarField rhoPhiL=fvc::interpolate(LatentHeat)*rhoPhi;
 do{
 iter++;
 epsilon1.storePrevIter();
-
+Temperature.storePrevIter();
 
 
 TRHS=          LatentHeat*((
@@ -80,7 +79,7 @@ TRHS.correctBoundaryConditions();
 volTensorField gradU = fvc::grad(U);
 volTensorField tau = ((mixture.mu()*gradU) + (mixture.mu()*gradU.T()))-((2.0/3.0)*mixture.mu()*(fvc::div(phi))*I);
 
-Qv = /*min(max((Temperature-(Tvap-(TSmooth/2.0)))/TSmooth,0.0),1.0)*/0.82*LatentHeatVap*Mm*p0*Foam::exp(LatentHeatVap*Mm*((Temperature-Tvap)/(R*Temperature*Tvap)))/Foam::pow(2*M_PI*Mm*R*Temperature,0.5);
+Qv = min(max((Temperature-(Tvap-(TSmooth/2.0)))/TSmooth,0.0),1.0)*alpha1*0.82*LatentHeatVap*Mm*p0*Foam::exp(LatentHeatVap*Mm*((Temperature-Tvap)/(R*Temperature*Tvap)))/Foam::pow(2*M_PI*Mm*R*Temperature,0.5);
 Qv.correctBoundaryConditions();
 
 ViscousDissipation=(tau && gradU);
@@ -126,18 +125,22 @@ epsilon1=max(min(epsilon1+(epsilonRel*cp/LatentHeat)*(Temperature-Tcorr),scalar(
 epsilon1.correctBoundaryConditions();
 
 
- residual = gMax(mag(epsilon1.primitiveField()-epsilon1.prevIter().primitiveField()));
+residual = gMax(mag(epsilon1.primitiveField()-epsilon1.prevIter().primitiveField()));
+
+//Tresidual = gMax(mag(Temperature.primitiveField()-Temperature.prevIter().primitiveField()));
+
 meanResidual = gSum(mag(epsilon1.primitiveField()-epsilon1.prevIter().primitiveField())*mesh.V())/gSum(mesh.V().field());
 
 
         Info << "Correcting epsilon1, mean residual = " << meanResidual.value()
              << ", max residual = " << residual.value()
+	  //   << ", Temperature residual = " << Tresidual.value()
              << endl;
 
 ddte1=fvc::ddt(epsilon1);
 ddte1.correctBoundaryConditions();
 
-}while((iter < minTCorr || (residual > epsilonTol)) && iter <= maxTCorr );
+}while((iter < minTCorr || (residual > epsilonTol) ) && iter <= maxTCorr );
 
 
 // #include "UpdateProps.H"
