@@ -40,6 +40,6 @@ OpenFoam, and by extension the beamWeldFoam application, is licensed free and op
 ## Acknowledgements
 The work was generously supported by the Engineering and Physical Sciences Research Council (EPSRC) under the ``Cobalt-free Hard-facing for Reactor Systems'' grant EP/T016728/1.
 
-![visitors](https://visitor-badge.glitch.me/badge?page_id=page.id)
+![visitors](https://visitor-badge.glitch.me/badge?page_id=tomflint22.UntitledFoam)
 
 
