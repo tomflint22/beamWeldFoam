@@ -1,23 +1,12 @@
 
 {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-dimensionedScalar pi = constant::mathematical::pi;
 
-dimensionedScalar a_cond("a_cond",dimensionSet(0, 1, 0, 0, 0),HS_a);//
-// dimensionedScalar c_cond("c_cond",dimensionSet(0, 1, 0, 0, 0),HS_c);//
-dimensionedScalar b_g("b_g",dimensionSet(0, 1, 0, 0, 0),HS_bg);//
-dimensionedScalar v_arc("v_arc",dimensionSet(0, 1, -1, 0, 0),HS_velocity);//
-dimensionedScalar Q_cond("Q_cond",dimensionSet(1, 2, -3, 0, 0),HS_Q);//
-dimensionedScalar lg("lg",dimensionSet(0, 1, 0, 0, 0),HS_lg);//
-dimensionedScalar time("time",dimensionSet(0, 0, 1, 0, 0),runTime.time().value());//
 
-dimensionedScalar Osc_Amp("Osc_Amp",dimensionSet(0, 1, 0, 0, 0),Oscillation_Amplitude);//
-dimensionedScalar Osc_freq("Osc_freq",dimensionSet(0, 0, -1, 0, 0),Oscillation_Frequency);//
 
-////////    Heat Source Selection   ////////
 
-//  #include "newHS.H"
-#include "DivergingOscillatingGaussian.H"
+
+
 int iter = 0;
 
 dimensionedScalar residual("residual",dimensionSet(0, 0, 0, 0, 0),scalar(1.0));

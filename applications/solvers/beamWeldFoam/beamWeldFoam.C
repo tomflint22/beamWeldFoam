@@ -152,6 +152,7 @@ int main(int argc, char *argv[])
             #include "alphaControls.H"
             #include "alphaEqnSubCycle.H"
             #include "UpdateProps.H"
+	    #include "DivergingOscillatingGaussian.H"
 
             mixture.correct();
 
