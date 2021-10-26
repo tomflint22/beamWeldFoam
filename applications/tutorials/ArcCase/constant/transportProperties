@@ -20,16 +20,16 @@ phases (phase1 phase2);
 phase1
 {
     transportModel  Newtonian;
-    nu              2.0e-06;
-    rho             4500;
-    cp  1100;
-    cpsolid 520.0;
-    kappa  30.0;
-	kappasolid  20.0; 
-	Tsolidus 1878;
-	Tliquidus 1933;
-    LatentHeat 360000;
-    beta    8.0e-6;
+    nu              1.0e-06;
+    rho             2710;
+    cp  1127;
+    cpsolid 896.0;
+    kappa  100.0;
+	kappasolid  237.0; 
+	Tsolidus 927;
+	Tliquidus 945;
+    LatentHeat 396666;
+    beta    1.0e-5;
 }
 
 phase2
@@ -47,12 +47,12 @@ kappasolid 0.016;
     beta    1.0e-5;
 }
 
-sigma            1.5;//1.5;
-dsigmadT	-4.5e-4;
+sigma            0.8;//1.5;
+dsigmadT	-0.1e-4;
 
 p0		100000.0;
-Tvap 3560.0;
-Mm 0.446;
-LatentHeatVap 4.7e6;
+Tvap 2743.0;
+Mm 0.027;
+LatentHeatVap 10.518518e6;
 
 // ************************************************************************* //

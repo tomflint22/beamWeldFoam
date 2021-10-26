@@ -9,37 +9,48 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volScalarField;
-    object      p_rgh;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 0 0 1 0 0 0];
+application     Flint_multiphaseEulerFoamD;
 
-internalField   uniform 300.0;
+startFrom       latestTime;
 
-boundaryField
-{
-	frontAndBack{
-type fixedGradient;
-gradient uniform -100.0;
-	}
+startTime       0;
 
-    lowerWall
-    {
-type fixedGradient;
-gradient uniform -1000.0;
-    }
+stopAt          endTime;
 
-    atmosphere
-    {
-type zeroGradient;
-    }
+endTime         0.9;
 
-    defaultFaces
-    {
-        type            empty;
-    }
-}
+deltaT          1.0e-7;
+
+writeControl    adjustableRunTime;
+
+writeInterval   5e-03;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  10;
+
+writeCompression uncompressed;
+
+timeFormat      general;
+
+timePrecision   10;
+
+runTimeModifiable yes;
+
+adjustTimeStep  yes;
+
+maxCo           0.1;//0.1;
+maxAlphaCo      0.1;
+
+maxDeltaT       10e-6;
+
 
 // ************************************************************************* //
