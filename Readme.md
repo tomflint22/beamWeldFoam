@@ -18,7 +18,7 @@ The current version of the code utilises the [OpenFoam6 libraries](https://openf
 Then navigate to a working folder in a shell terminal, clone the git code repository, and build.
 
 ```
-$ git clone https://github.com/tomflint22/UntitledFoam.git beamWeldFoam
+$ git clone https://github.com/tomflint22/beamWeldFoam.git beamWeldFoam
 $ cd beamWeldFoam/applications/solvers/beamWeldFoam/
 $ wclean
 $ wmake
@@ -40,6 +40,6 @@ OpenFoam, and by extension the beamWeldFoam application, is licensed free and op
 ## Acknowledgements
 The work was generously supported by the Engineering and Physical Sciences Research Council (EPSRC) under the ``Cobalt-free Hard-facing for Reactor Systems'' grant EP/T016728/1.
 
-![visitors](https://visitor-badge.glitch.me/badge?page_id=tomflint22.UntitledFoam)
+![visitors](https://visitor-badge.glitch.me/badge?page_id=tomflint22.beamWeldFoam)
 
 
