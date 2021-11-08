@@ -85,7 +85,7 @@ Two sample tutorial cases, i.e. Gallium Meliing, and Sen and Davies cases are in
 OpenFoam, and by extension the beamWeldFoam application, is licensed free and open source only under the [GNU General Public Licence version 3](https://www.gnu.org/licenses/gpl-3.0.en.html). One reason for OpenFOAM’s popularity is that its users are granted the freedom to modify and redistribute the software and have a right of continued free use, within the terms of the GPL.
 
 ## Acknowledgements
-The work was generously supported by the Engineering and Physical Sciences Research Council (EPSRC) under the ``Cobalt-free Hard-facing for Reactor Systems'' grant EP/T016728/1.
+The work was generously supported by the Engineering and Physical Sciences Research Council (EPSRC) under the ''Cobalt-free Hard-facing for Reactor Systems'' grant EP/T016728/1, and Science Foundation Ireland (SFI), co-funded under European Regional Development Fund and by I-Form industry partners, grant 16/RC/3872.
 
 ## References
 * Kay Wittig and Petr A Nikrityuk 2012 IOP Conf. Ser.: Mater. Sci. Eng. 27 012054
