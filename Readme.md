@@ -87,6 +87,11 @@ OpenFoam, and by extension the beamWeldFoam application, is licensed free and op
 ## Acknowledgements
 The work was generously supported by the Engineering and Physical Sciences Research Council (EPSRC) under the ''Cobalt-free Hard-facing for Reactor Systems'' grant EP/T016728/1, and Science Foundation Ireland (SFI), co-funded under European Regional Development Fund and by I-Form industry partners, grant 16/RC/3872.
 
+## Citing This Work
+If you use beamWeldFoam in your work. Please use the following to cite our work:
+
+Flint, Thomas and Parivendhan, Gowthaman and Ivankovic, Alojz and Smith, Mike and Cardiff, Philip, Beamweldfoam: Numerical Simulation of High Energy Density Fusion and Vapourisation-Inducing Processes. Available at SSRN: https://ssrn.com/abstract=3972030 or http://dx.doi.org/10.2139/ssrn.3972030 
+
 ## References
 * Kay Wittig and Petr A Nikrityuk 2012 IOP Conf. Ser.: Mater. Sci. Eng. 27 012054
 * Sen, A., & Davis, S. (1982). Steady thermocapillary flows in two-dimensional slots. Journal of Fluid Mechanics, 121, 163-186. doi:10.1017/S0022112082001840
