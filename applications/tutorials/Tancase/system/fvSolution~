@@ -17,27 +17,16 @@ FoamFile
 
 solvers
 {
-    "alpha.phase1.*"
+    "alpha.*"
     {
-        nAlphaCorr      3;
-        nAlphaSubCycles 3;
-        cAlpha          1.0;
-	scAlpha		0.5;
-
-        MULESCorr       yes;
-        nLimiterIter    5;
-
-        solver          smoothSolver;
-        smoother        symGaussSeidel;
-        tolerance       1e-9;
-        relTol          0;
+        nAlphaSubCycles 5;
     }
 
     p_rgh
     {
         solver          GAMG;
-        tolerance       1e-9;
-        relTol          0.0;//0.005;//0.05;
+        tolerance       1e-8;
+        relTol          0.05;//0.005;//0.05;
         smoother        GaussSeidel;//GaussSeidel;//
         nPreSweeps      2;
         nPostSweeps     3;
@@ -54,7 +43,7 @@ solvers
         preconditioner
         {
             preconditioner  GAMG;
-            tolerance       1e-9;
+            tolerance       1e-8;
             relTol          0;
             nVcycles        5;
             smoother        GaussSeidel;//GaussSeidel;//DICGaussSeidel;//
@@ -66,24 +55,16 @@ solvers
             agglomerator    faceAreaPair;
             mergeLevels     1;
         }
-        tolerance       1e-9;
+        tolerance       1e-8;
         relTol          0;
         maxIter         25;//20;
     }
 
-    "pcorr.*"
+    pcorr
     {
-        solver          PCG;
-        preconditioner
-        {
-            preconditioner  GAMG;
-            tolerance       1e-9;
-            relTol          0;
-            smoother        GaussSeidel;
-        }
-        tolerance       1e-9;
+        $p_rghFinal;
+        tolerance       1e-8;
         relTol          0;
-        maxIter         100;
     }
 
     U
@@ -91,7 +72,7 @@ solvers
         solver          smoothSolver;
         smoother        GaussSeidel;//GaussSeidel;//DICGaussSeidel;//
         tolerance       1e-9;
-        relTol          0.0;//0.1;
+        relTol          0.05;//0.1;
         nSweeps         5;//1;
     }
 
@@ -104,17 +85,11 @@ solvers
 
     Temperature
     {
-/*
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-12;
-        minIter         1;
-        maxIter         500;//2
-*/
-        solver          smoothSolver;
-        smoother        symGaussSeidel;
         tolerance       1e-9;
-        relTol          0.0;
+        minIter         1;
+        maxIter         50;//2
     }
 
     TemperatureFinal
@@ -126,7 +101,7 @@ solvers
 PIMPLE
 {
     nOuterCorrectors 1;
-    nCorrectors     3;
+    nCorrectors     5;
     nNonOrthogonalCorrectors 0;
     pRefCell        0.0;
     pRefValue       0.0;
@@ -135,34 +110,32 @@ PIMPLE
 MELTING
 {
     minTempCorrector 1;
-    maxTempCorrector 150;
-    epsilonTolerance 1e-6;
-    epsilonRelaxation 0.95;
+    maxTempCorrector 320;
+    epsilonTolerance 1e-12;
+    epsilonRelaxation 0.6;
     
+    epsilon2Tolerance 1e-9;
+    epsilon2Relaxation 0.6;
 //	//	Heatsource characteristics
-HS_a 0.002;
-HS_bg 0.0;//20
-HS_velocity 0.0;//6.0;
-HS_lg 0.0;
-HS_Q 780.0;//
+HS_a 0.00025;
+HS_c 0.00025;
+HS_bg 0.020;//20
+HS_dg 0.03;//done
+HS_velocity 0.00833333;
+HS_lg -0.000833333;
+HS_Q 12000.0;
 
-HS_deposition_cutoff 0.5;
+Ray_direction (0 10 0);
+RAY_absorption_factor 1.0;//probability of each ray being absorbed//
+RAY_sizetolerence 0.5e-7;
 
-Oscillation_Amplitude   0.0;//0.015;
-Oscillation_Frequency   0.0;
-
-Y_R 0.2;//0.05; //Y_R->0 HS -> wider
-focY	0.0165; //-0.08;//
-foc_shift_vel 0.0;
-Q_ramp_rate 7800.0;
-tshift 0.25;
-
-damperSwitch false;//true;
+surface_Tension_sigma 1.5;//0.75;
+surface_Tension_dsigmadT -0.28e-4;
+atmospheric_pressure 1.0e-4;
 }
 
 relaxationFactors
 {
-}
     "U.*"           0.82;//0.82;//1;
 }
 

@@ -23,8 +23,7 @@ ddtSchemes
 d2dt2Schemes
 {
 //d2dt2(rho,D) steadyState;
-d2dt2(D) steadyState;//Euler;
-
+d2dt2(D) steadyState;
 }
 gradSchemes
 {
@@ -34,9 +33,6 @@ gradSchemes
 divSchemes
 {
     div(rhoPhi,U)  Gauss linearUpwind grad(U);
-
-    div((interpolate(epsilon1mask)*rhoPhi),U)    Gauss linearUpwind grad(U);
-
     div(phi,alpha)  Gauss vanLeer;
     div(phirb,alpha) Gauss linear;
     div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
@@ -55,6 +51,7 @@ div(rhoPhi,Le1) Gauss linear;//
 
 div((interpolate(LatentHeat)*rhoPhi),epsilon1)	Gauss vanLeer;
 
+div(sigma) Gauss linear;
 }
 
 laplacianSchemes

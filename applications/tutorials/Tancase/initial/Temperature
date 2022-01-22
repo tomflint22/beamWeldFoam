@@ -1,0 +1,54 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      p_rgh;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 1 0 0 0];
+
+internalField   uniform 545.0;
+
+boundaryField
+{
+	hotWall{
+//type fixedGradient;
+//gradient uniform -2000.0;
+type fixedValue;
+value uniform 552.55;
+	}
+	coldWall{
+//type fixedGradient;
+//gradient uniform -2000.0;
+type fixedValue;
+value uniform 540.0;
+	}
+
+    lowerWall
+    {
+type fixedGradient;
+gradient uniform -0.0;
+    }
+
+    atmosphere
+    {
+type fixedGradient;
+gradient uniform -0.0;
+    }
+
+    defaultFaces
+    {
+        type            empty;
+    }
+}
+
+// ************************************************************************* //

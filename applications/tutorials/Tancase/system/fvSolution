@@ -1,9 +1,9 @@
 /*--------------------------------*- C++ -*----------------------------------*\
-| =========                 |                                                 |
-| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  3.0.1                                 |
-|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
-|    \\/     M anipulation  |                                                 |
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
@@ -19,16 +19,23 @@ solvers
 {
     "alpha.phase1.*"
     {
-        nAlphaCorr      3;
+        nAlphaCorr      2;
         nAlphaSubCycles 3;
-        cAlpha          1.0;
-	scAlpha		0.5;
+        cAlpha          1;
 
         MULESCorr       yes;
         nLimiterIter    5;
 
         solver          smoothSolver;
         smoother        symGaussSeidel;
+        tolerance       1e-12;
+        relTol          0;
+    }
+
+    "pcorr.*"
+    {
+        solver          PCG;
+        preconditioner  DIC;
         tolerance       1e-9;
         relTol          0;
     }
@@ -36,8 +43,8 @@ solvers
     p_rgh
     {
         solver          GAMG;
-        tolerance       1e-9;
-        relTol          0.0;//0.005;//0.05;
+        tolerance       1e-12;
+        relTol          0;//0.005;//0.05;
         smoother        GaussSeidel;//GaussSeidel;//
         nPreSweeps      2;
         nPostSweeps     3;
@@ -54,7 +61,7 @@ solvers
         preconditioner
         {
             preconditioner  GAMG;
-            tolerance       1e-9;
+            tolerance       1e-12;
             relTol          0;
             nVcycles        5;
             smoother        GaussSeidel;//GaussSeidel;//DICGaussSeidel;//
@@ -66,51 +73,21 @@ solvers
             agglomerator    faceAreaPair;
             mergeLevels     1;
         }
-        tolerance       1e-9;
+        tolerance       1e-12;
         relTol          0;
         maxIter         25;//20;
-    }
-
-    "pcorr.*"
-    {
-        solver          PCG;
-        preconditioner
-        {
-            preconditioner  GAMG;
-            tolerance       1e-9;
-            relTol          0;
-            smoother        GaussSeidel;
-        }
-        tolerance       1e-9;
-        relTol          0;
-        maxIter         100;
     }
 
     U
     {
         solver          smoothSolver;
-        smoother        GaussSeidel;//GaussSeidel;//DICGaussSeidel;//
-        tolerance       1e-9;
-        relTol          0.0;//0.1;
-        nSweeps         5;//1;
-    }
-
-    UFinal
-    {
-        $U;
-        tolerance       1e-9;
+        smoother        symGaussSeidel;
+        tolerance       1e-16;
         relTol          0;
     }
 
     Temperature
     {
-/*
-        solver          PBiCG;
-        preconditioner  DILU;
-        tolerance       1e-12;
-        minIter         1;
-        maxIter         500;//2
-*/
         solver          smoothSolver;
         smoother        symGaussSeidel;
         tolerance       1e-9;
@@ -125,8 +102,9 @@ solvers
 
 PIMPLE
 {
-    nOuterCorrectors 1;
-    nCorrectors     3;
+    momentumPredictor   no;
+    nOuterCorrectors    1;
+    nCorrectors         5;
     nNonOrthogonalCorrectors 0;
     pRefCell        0.0;
     pRefValue       0.0;
@@ -135,35 +113,36 @@ PIMPLE
 MELTING
 {
     minTempCorrector 1;
-    maxTempCorrector 150;
-    epsilonTolerance 1e-6;
-    epsilonRelaxation 0.95;
-    
+    maxTempCorrector 100;
+    epsilonTolerance 1e-8;
+    epsilonRelaxation 0.9;
 //	//	Heatsource characteristics
-HS_a 0.002;
+HS_a 0.0075;
 HS_bg 0.0;//20
 HS_velocity 0.0;//6.0;
 HS_lg 0.0;
-HS_Q 780.0;//
+HS_Q 0.0;//10000.0;//
 
-HS_deposition_cutoff 0.5;
+HS_deposition_cutoff 0.9;
 
 Oscillation_Amplitude   0.0;//0.015;
-Oscillation_Frequency   0.0;
+Oscillation_Frequency   10.0;
 
 Y_R 0.2;//0.05; //Y_R->0 HS -> wider
 focY	0.0165; //-0.08;//
 foc_shift_vel 0.0;
-Q_ramp_rate 7800.0;
-tshift 0.25;
+Q_ramp_rate 2500.0;
+tshift 2.5;
 
-damperSwitch false;//true;
 }
 
 relaxationFactors
 {
+    equations
+    {
+        ".*" 0.95;
+    }
 }
-    "U.*"           0.82;//0.82;//1;
-}
+
 
 // ************************************************************************* //

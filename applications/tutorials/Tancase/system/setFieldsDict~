@@ -1,0 +1,48 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+defaultFieldValues
+(
+    volScalarFieldValue alpha.air 1
+    volScalarFieldValue alpha.Duplex 0
+    volVectorFieldValue U (0 0 0)
+);
+
+regions
+(
+    boxToCell
+    {
+        box (0 0.034 -1) (0.040 0.040 51);
+        fieldValues
+        (
+            volScalarFieldValue alpha.Duplex 1
+            volScalarFieldValue alpha.air 0
+        );
+    }
+ //   boxToCell
+ //   {
+ //       box (0.020 0.029 -1) (0.040 0.04 51);
+ //       fieldValues
+ //       (
+ //           volScalarFieldValue alpha.Duplex 1
+ //           volScalarFieldValue alpha.air 0
+ //       );
+ //   }
+);
+
+
+// ************************************************************************* //
