@@ -19,7 +19,7 @@
 
 forAll( mesh.C(), celli)
 {
-if(alpha1[celli]>1e-9){
+if(alpha1[celli]>1e-4){
 TSolidus[celli]=Tsolidus1.value();
 TLiquidus[celli]=Tliquidus1.value();
 }
@@ -29,8 +29,18 @@ TLiquidus[celli]=alpha1[celli]*Tliquidus1.value() + alpha2[celli]*Tliquidus2.val
 }
 }
 
+/*
+forAll( mesh.C(), celli)
+{
+if(alpha1[celli]<0.99){
+LatentHeat[celli]=LatentHeat2.value();
 
-
+}
+else{
+LatentHeat[celli]=LatentHeat1.value();
+}
+}
+*/
 
 nneps1=fvc::grad(epsilon1)/((mag(gradepsilon1) + deltaN));
 nneps1.correctBoundaryConditions();
