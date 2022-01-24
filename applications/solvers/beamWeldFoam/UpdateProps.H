@@ -14,5 +14,55 @@
     nneps1=fvc::grad(epsilon1)/((mag(gradepsilon1) + deltaN));
     nneps1.correctBoundaryConditions();
 
-    gh=epsilon1*(g & mesh.C());
-    ghf= fvc::interpolate(epsilon1)*(g & mesh.Cf());
+
+
+/*
+forAll( mesh.C(), celli)
+{
+if(alpha1[celli]>1e-5){
+TSolidus[celli]=Tsolidus1.value();
+TLiquidus[celli]=Tliquidus1.value();
+}
+else{
+TSolidus[celli]=alpha1[celli]*Tsolidus1.value() + alpha2[celli]*Tsolidus2.value();
+TLiquidus[celli]=alpha1[celli]*Tliquidus1.value() + alpha2[celli]*Tliquidus2.value();
+}
+}
+
+
+forAll( mesh.C(), celli)
+{
+if(alpha1[celli]<0.99){
+LatentHeat[celli]=LatentHeat2.value();
+
+}
+else{
+LatentHeat[celli]=LatentHeat1.value();
+}
+}
+*/
+
+nneps1=fvc::grad(epsilon1)/((mag(gradepsilon1) + deltaN));
+nneps1.correctBoundaryConditions();
+
+
+volScalarField e1temp = fvc::average(epsilon1);
+
+
+
+forAll( mesh.C(), celli)
+{
+if(e1temp[celli]<=0.95){
+epsilon1mask[celli]=0.0;
+}
+else{
+epsilon1mask[celli]=epsilon1[celli];
+}
+
+}
+
+epsilon1mask.correctBoundaryConditions();
+
+
+    gh=epsilon1mask*(g & mesh.C());
+    ghf= fvc::interpolate(epsilon1mask)*(g & mesh.Cf());

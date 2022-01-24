@@ -11,46 +11,38 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "system";
-    object      controlDict;
+    object      setFieldsDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     Flint_multiphaseEulerFoamD;
+defaultFieldValues
+(
+    volScalarFieldValue alpha.air 1
+    volScalarFieldValue alpha.Duplex 0
+    volVectorFieldValue U (0 0 0)
+);
 
-startFrom       latestTime;
-
-startTime       0;
-
-stopAt          endTime;
-
-endTime         0.9;
-
-deltaT          1.0e-7;
-
-writeControl    adjustableRunTime;
-
-writeInterval   2e-03;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  10;
-
-writeCompression uncompressed;
-
-timeFormat      general;
-
-timePrecision   10;
-
-runTimeModifiable yes;
-
-adjustTimeStep  yes;
-
-maxCo           0.1;//0.1;
-maxAlphaCo      0.1;
-
-maxDeltaT       1.0e-5;
+regions
+(
+    boxToCell
+    {
+        box (0 0.034 -1) (0.040 0.040 51);
+        fieldValues
+        (
+            volScalarFieldValue alpha.Duplex 1
+            volScalarFieldValue alpha.air 0
+        );
+    }
+ //   boxToCell
+ //   {
+ //       box (0.020 0.029 -1) (0.040 0.04 51);
+ //       fieldValues
+ //       (
+ //           volScalarFieldValue alpha.Duplex 1
+ //           volScalarFieldValue alpha.air 0
+ //       );
+ //   }
+);
 
 
 // ************************************************************************* //

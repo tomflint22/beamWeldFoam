@@ -17,19 +17,19 @@ FoamFile
 
 application     Flint_multiphaseEulerFoamD;
 
-startFrom       latestTime;
+startFrom       startTime;
 
 startTime       0;
 
 stopAt          endTime;
 
-endTime         0.9;
+endTime         3;
 
-deltaT          1.0e-7;
+deltaT          0.00000005;
 
 writeControl    adjustableRunTime;
 
-writeInterval   2e-03;
+writeInterval   0.005;
 
 purgeWrite      0;
 
@@ -48,9 +48,9 @@ runTimeModifiable yes;
 adjustTimeStep  yes;
 
 maxCo           0.1;//0.1;
-maxAlphaCo      0.1;
+maxAlphaCo      0.05;
 
-maxDeltaT       1.0e-5;
+maxDeltaT       1e-4;
 
 
 // ************************************************************************* //

@@ -207,6 +207,22 @@ volVectorField nneps1
          dimensionedVector("nneps1",dimensionSet(0, 0, 0, 0, 0),vector::zero)
 );
 
+
+     volScalarField epsilon1mask
+    (
+        IOobject
+        (
+            "epsilon1mask",
+            runTime.timeName(),
+            mesh,
+            IOobject::READ_IF_PRESENT,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+       dimensionedScalar("epsilon1mask",dimensionSet(0,0,0,0,0),0.0)
+    );
+
+
 volVectorField gradT
 (
     IOobject
@@ -229,7 +245,7 @@ volScalarField LatentHeat
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
-        IOobject::NO_WRITE
+        IOobject::AUTO_WRITE
     ),
     mesh,
     dimensionedScalar("LatentHeat",dimensionSet(0, 2, -2, 0, 0),0.0)
