@@ -39,17 +39,16 @@ divSchemes
 
     div(phi*cp,Temperature)   Gauss linearUpwind grad(Temperature);
 
-div(rhoPhi,epsilon1)	Gauss linear;//Gauss vanLeer01;
+div(rhoPhi,epsilon1)	Gauss vanLeer01;//Gauss linear;//
 
     div((interpolate(cp)*rhoPhi),Temperature)   Gauss upwind;
 
     div(rhoPhi,Temperature)	Gauss upwind;
     div(phi,Temperature)   Gauss upwind;	
 	
-     div(phi,epsilon1) Gauss linear;//Gauss vanLeer01;
+     div(phi,epsilon1) Gauss vanLeer01;//Gauss linear;//
 div(rhoPhi,Le1) Gauss linear;//
 
-div((interpolate(LatentHeat)*rhoPhi),epsilon1)	Gauss vanLeer;
 
 div(sigma) Gauss linear;
 }

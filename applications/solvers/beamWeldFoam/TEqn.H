@@ -41,7 +41,7 @@
             + fvm::div(rhophicp, Temperature)
             - fvm::Sp(fvc::ddt(rhoCp) + fvc::div(rhophicp), Temperature)
             - fvm::laplacian(kappa, Temperature)
-            //-(tau && gradU) //Viscous dissipation
+            -(tau && gradU) //Viscous dissipation
             ==
             fvOptions(rhoCp,Temperature) + (sourceTerm) - Qv*mag(gradAlpha)*thermalDamper - (TRHS)
             );

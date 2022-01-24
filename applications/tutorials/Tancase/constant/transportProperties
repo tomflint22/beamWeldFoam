@@ -26,8 +26,8 @@ phase1
     cpsolid  123;
     kappa  10.35;//70.0; 
     kappasolid  10.35; 
-    Tsolidus    544.35;
-    Tliquidus   544.75;
+    Tsolidus    544.45;
+    Tliquidus   544.65;
     LatentHeat  4.46e4;
     beta    1.37e-4;
 }

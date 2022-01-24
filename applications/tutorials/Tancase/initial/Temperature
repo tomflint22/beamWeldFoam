@@ -16,7 +16,7 @@ FoamFile
 
 dimensions      [0 0 0 1 0 0 0];
 
-internalField   uniform 545.0;
+internalField   uniform 545.5;
 
 boundaryField
 {
@@ -30,7 +30,7 @@ value uniform 552.55;
 //type fixedGradient;
 //gradient uniform -2000.0;
 type fixedValue;
-value uniform 540.0;
+value uniform 540.55;
 	}
 
     lowerWall

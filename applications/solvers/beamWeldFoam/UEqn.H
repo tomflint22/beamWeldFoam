@@ -5,7 +5,7 @@ MRF.correctBoundaryVelocity(U);
 
     dimensionedScalar TSmooth("TSmooth",dimensionSet(0, 0, 0, 1, 0),50.0);
 
-    DC=(DarcyConstantlarge*Foam::pow((1.0-epsilon1),2)/(Foam::pow(epsilon1,3)+DarcyConstantsmall));
+    DC=(DarcyConstantlarge*Foam::pow((1.0-epsilon1mask),2)/(Foam::pow(epsilon1mask,3)+DarcyConstantsmall));
     DC.correctBoundaryConditions();
 
     volVectorField gradAlpha = fvc::grad(alpha1);
