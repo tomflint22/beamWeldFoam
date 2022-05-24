@@ -1,0 +1,15 @@
+#!/bin/bash
+cd ${0%/*} || exit 1    # run from this directory
+
+# Stop at first error
+set -e
+
+# Check if OpenFOAM has been sourced
+if [[ -z "${WM_PROJECT}" ]]
+then
+    echo "Please source the OpenFOAM bashrc first!"
+    exit 1
+fi
+
+# Compile solver
+(cd applications/solvers/beamWeldFoam && wmake)
