@@ -18,7 +18,7 @@ runApplication setFields
 if [[ "$1" == "parallel" ]]; then
     # Run in parallel                                                                                                                                                                                       
     runApplication decomposePar
-    mpirun -np 6 beamWeldFoam -parallel &> log.beamWeldFoam
+    runParallel beamWeldFoam
     runApplication reconstructPar
 else
     # Run in serial                                                                                                                                                                            
