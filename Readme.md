@@ -90,7 +90,14 @@ The work was generously supported by the Engineering and Physical Sciences Resea
 ## Citing This Work
 If you use beamWeldFoam in your work. Please use the following to cite our work:
 
-Thomas F. Flint, Gowthaman Parivendhan, Alojz Ivankovic, Michael C. Smith, Philip Cardiff, beamWeldFoam: Numerical simulation of high energy density fusion and vapourisation-inducing processes, SoftwareX, Volume 18, 2022, 101065, ISSN 2352-7110, https://doi.org/10.1016/j.softx.2022.101065
+Thomas F. Flint, Gowthaman Parivendhan, Alojz Ivankovic, Michael C. Smith, Philip Cardiff,
+beamWeldFoam: Numerical simulation of high energy density fusion and vapourisation-inducing processes,
+SoftwareX,
+Volume 18,
+2022,
+101065,
+ISSN 2352-7110,
+https://doi.org/10.1016/j.softx.2022.101065
 
 ## References
 * Kay Wittig and Petr A Nikrityuk 2012 IOP Conf. Ser.: Mater. Sci. Eng. 27 012054
