@@ -88,11 +88,19 @@ solvers
 
     U
     {
+
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-12;
+        minIter         1;
+        maxIter         500;//2
+/*
         solver          smoothSolver;
         smoother        GaussSeidel;//GaussSeidel;//DICGaussSeidel;//
         tolerance       1e-9;
         relTol          0.0;//0.1;
         nSweeps         5;//1;
+*/
     }
 
     UFinal
@@ -104,17 +112,18 @@ solvers
 
     Temperature
     {
-/*
+
         solver          PBiCG;
         preconditioner  DILU;
         tolerance       1e-12;
         minIter         1;
         maxIter         500;//2
-*/
+/*
         solver          smoothSolver;
         smoother        symGaussSeidel;
         tolerance       1e-9;
         relTol          0.0;
+*/
     }
 
     TemperatureFinal
@@ -142,7 +151,7 @@ MELTING
 //	//	Heatsource characteristics
 HS_a 0.0002;
 HS_bg 0.0;//20
-HS_velocity 0.0;//6.0;
+HS_velocity 3.0;//6.0;
 HS_lg 0.0;
 HS_Q 400.0;//
 
