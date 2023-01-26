@@ -11,9 +11,9 @@ The solver approach is based on the adiabatic two-phase interFoam code developed
 
 ## Installation
 
-The current version of the code utilises the [OpenFoam6 libraries](https://openfoam.org/version/6/). The code has been developed and tested using an Ubuntu installation, but should work on any operating system capable of installing OpenFoam. To install the beamWeldFoam solver, first follow the instructions on this page: [OpenFoam 6 Install](https://openfoam.org/download/6-ubuntu/) to install the OpenFoam 6 libraries.
+The current version of the code utilises the [OpenFoam6 libraries](https://openfoam.org/version/6/) or the [OpenFoam10 libraries](https://openfoam.org/version/10/). The code has been developed and tested using an Ubuntu installation, but should work on any operating system capable of installing OpenFoam. To install the beamWeldFoam solver, first follow the instructions on this page: [OpenFoam 6 Install](https://openfoam.org/download/6-ubuntu/) to install the OpenFoam 6 (or 10) libraries.
 
-
+All the cases in the paper were run using the OpenFoam6 version of the code. Not all cases have been converted to the OpenFoam10 style.
 
 Then navigate to a working folder in a shell terminal, clone the git code repository, and build.
 

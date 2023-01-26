@@ -1,39 +1,77 @@
-cp =
-    (epsilon1*(alpha1*cp1 + alpha2*cp2))
-  + ((1.0-epsilon1)*(alpha1*cp1solid + alpha2*cp2solid));
-kappa =
-    (epsilon1*(alpha1*kappa1 + alpha2*kappa2))
-  + ((1.0-epsilon1)*(alpha1*kappa1solid + alpha2*kappa2solid));
-TSolidus = alpha1*Tsolidus1 + alpha2*Tsolidus2;
-TLiquidus = alpha1*Tliquidus1 + alpha2*Tliquidus2;
-LatentHeat = alpha1*LatentHeat1 + alpha2*LatentHeat2;
-beta = alpha1*beta1 + alpha2*beta2;
-rhok = (1.0 - max(epsilon1*beta*(Temperature - TSolidus), 0.0));
 
-const volVectorField gradepsilon1(fvc::grad(epsilon1));
+// cp=(epsilon1*(alpha1*cp1 + (1.0-alpha1)*cp2)) + ((1.0-epsilon1)*(alpha1*cp1solid + (1.0-alpha1)*cp2solid));
+// kappa=(epsilon1*(alpha1*kappa1 + (1.0-alpha1)*kappa2)) + ((1.0-epsilon1)*(alpha1*kappa1solid + (1.0-alpha1)*kappa2solid));
+TSolidus=alpha1*Tsolidus1 + (1.0-alpha1)*Tsolidus2;
+TLiquidus=alpha1*Tliquidus1 + (1.0-alpha1)*Tliquidus2;
+// LatentHeat=alpha1*LatentHeat1 + (1.0-alpha1)*LatentHeat2;
+beta=alpha1*beta1 + (1.0-alpha1)*beta2;
 
-nneps1 = fvc::grad(epsilon1)/((mag(gradepsilon1) + deltaN));
+rhok=(1.0-max(epsilon1*(beta)*(T-TSolidus),0.0));
+rhok.correctBoundaryConditions();
 
-const volScalarField e1temp(fvc::average(epsilon1));
-
-scalarField& epsilon1maskI = epsilon1mask.primitiveFieldRef();
-const scalarField& e1tempI = e1temp.internalField();
-const scalarField& epsilon1I = epsilon1.internalField();
-
-forAll(epsilon1maskI, celli)
+forAll( mesh.C(), celli)
 {
-    if (e1tempI[celli] <= 0.95)
+if(alpha1[celli]>0.05){
+TSolidus[celli]=Tsolidus1.value();
+TLiquidus[celli]=Tliquidus1.value();
+}
+}
+
+forAll( mesh.C(), celli)
+{
+kappa[celli]=(max(min(alpha1[celli],1.0),0.0)*(polykappa_m.value(T[celli])))+((1.0-max(min(alpha1[celli],1.0),0.0))*polykappa_g.value(T[celli]));
+cp[celli]=(max(min(alpha1[celli],1.0),0.0)*(polycp_m.value(T[celli])))+((1.0-max(min(alpha1[celli],1.0),0.0))*polycp_g.value(T[celli]));
+}
+
+kappa.correctBoundaryConditions();
+
+
+
+LatentHeat=alpha1*LatentHeat1 + (1.0-alpha1)*LatentHeat2;
+
+volVectorField gradepsilon1(fvc::grad(alpha1));
+
+gradepsilon1.correctBoundaryConditions();
+
+n_filtered = fvc::grad(alpha1)/((mag(gradepsilon1) + deltaN));
+
+n_filtered.correctBoundaryConditions();
+
+// volScalarField 
+epsilon1.correctBoundaryConditions();
+volScalarField e1temp(fvc::average(epsilon1));
+
+e1temp.correctBoundaryConditions();
+
+forAll( mesh.C(), celli)
+{
+    if(e1temp[celli]<=0.95)
     {
-        epsilon1maskI[celli] = 0.0;
+        epsilon1mask[celli]=0.0;
     }
     else
     {
-        epsilon1maskI[celli] = epsilon1I[celli];
+        epsilon1mask[celli]=epsilon1[celli];
     }
 
 }
 
 epsilon1mask.correctBoundaryConditions();
 
-gh = epsilon1mask*(g & mesh.C());
-ghf = fvc::interpolate(epsilon1mask)*(g & mesh.Cf());
+volScalarField e2temp(fvc::average(epsilon1mask));
+epsilon1mask2*=0.0;
+forAll( mesh.C(), celli)
+{
+    if(e2temp[celli]<=0.95)
+    {
+        epsilon1mask2[celli]=0.0;
+    }
+    else
+    {
+        epsilon1mask2[celli]=epsilon1mask[celli];
+    }
+
+}
+
+gh=epsilon1mask*(g & mesh.C());
+ghf= fvc::interpolate(epsilon1mask)*(g & mesh.Cf());
