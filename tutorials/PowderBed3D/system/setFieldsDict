@@ -1,0 +1,102 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+defaultFieldValues
+(
+    volScalarFieldValue alpha.metal 0
+);
+
+regions
+(
+
+
+    boxToCell
+    {
+        box (-85 0.0002 -1) (85 0.0003 1);
+        fieldValues
+        (
+volScalarFieldValue alpha.metal 1.0
+        );
+    }
+
+sphereToCell 
+    { 
+        centre ( 0 1.5e-4 1e-04 ); 
+        radius  5.0e-05 ; 
+        fieldValues  
+        (  
+volScalarFieldValue alpha.metal 1.0
+        );  
+    }
+
+sphereToCell 
+    { 
+        centre ( 1e-4 1.5e-4 1e-04 ); 
+        radius  5.0e-05 ; 
+        fieldValues  
+        (  
+volScalarFieldValue alpha.metal 1.0
+        );  
+    } 
+
+sphereToCell 
+    { 
+        centre ( -1e-4 1.5e-4 1e-04 ); 
+        radius  5.0e-05 ; 
+        fieldValues  
+        (  
+volScalarFieldValue alpha.metal 1.0
+        );  
+    } 
+
+sphereToCell 
+    { 
+        centre ( 0 1.5e-4 2e-04 ); 
+        radius  5.0e-05 ; 
+        fieldValues  
+        (  
+volScalarFieldValue alpha.metal 1.0
+        );  
+    }
+
+sphereToCell 
+    { 
+        centre ( 1e-4 1.5e-4 2e-04 ); 
+        radius  5.0e-05 ; 
+        fieldValues  
+        (  
+volScalarFieldValue alpha.metal 1.0
+        );  
+    } 
+
+sphereToCell 
+    { 
+        centre ( -1e-4 1.5e-4 2e-04 ); 
+        radius  5.0e-05 ; 
+        fieldValues  
+        (  
+volScalarFieldValue alpha.metal 1.0
+        );  
+    } 
+
+
+
+);
+
+
+// ************************************************************************* //
+
